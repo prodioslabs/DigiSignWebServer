@@ -7,11 +7,25 @@ namespace DigiSignWebServer.Controllers;
 [Route("[controller]")]
 public class CertificateController : ControllerBase
 {
-    [HttpGet(Name = "GetCertificates")]
-    public GetCertificates()
+  [HttpGet(Name = "GetCertificates")]
+  public List<CertificateData> GetCertificates()
+  {
+    List<CertificateData> Certificates = new List<CertificateData>();
+
+    X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+    store.Open(OpenFlags.ReadOnly);
+
+    foreach (X509Certificate2 certifcate in store.Certificates)
     {
-        X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-        store.Open(OpenFlags.ReadOnly);
-        return [];
+      Certificates.Append(
+          new CertificateData
+          {
+            Subject = certifcate.Subject,
+            IssuerName = certifcate.IssuerName.ToString(),
+          }
+      );
     }
+
+    return Certificates;
+  }
 }
