@@ -9,9 +9,9 @@ public class SignController : ControllerBase
     [HttpPost(Name = "PostSign")]
     public SignedData Post(DataToSign dataToSign)
     {
-        if (dataToSign.Data != null)
+        if (dataToSign.Data != null && dataToSign.CertificateSubject != null)
         {
-            DigiSigner signer = new DigiSigner();
+            DigiSigner signer = new DigiSigner(dataToSign.CertificateSubject);
             SignedData signedData = signer.SignText(dataToSign.Data);
             return signedData;
         }

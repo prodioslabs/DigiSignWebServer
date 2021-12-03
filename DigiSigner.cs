@@ -6,13 +6,20 @@ namespace DigiSignWebServer;
 
 public class DigiSigner
 {
+    private string CertificateSubject;
+
+    public DigiSigner(string certSubject)
+    {
+        CertificateSubject = certSubject;
+    }
+
     private X509Certificate2 LoadCertificate()
     {
         X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
         store.Open(OpenFlags.ReadOnly);
         foreach (X509Certificate2 certificate in store.Certificates)
         {
-            if (certificate.Subject.ToLower().Contains("o=personal"))
+            if (certificate.Subject == CertificateSubject)
             {
                 return certificate;
             }

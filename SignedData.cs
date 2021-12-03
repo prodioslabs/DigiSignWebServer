@@ -2,6 +2,7 @@ namespace DigiSignWebServer;
 public class DataToSign
 {
     public string? Data { get; set; }
+    public string? CertificateSubject { get; set; }
 }
 
 public class SignedData
