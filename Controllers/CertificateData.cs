@@ -6,4 +6,6 @@ public class CertificateData
     public string? Issuer { get; set; }
 
     public string? ExpiryDate { get; set; }
+
+    public bool? IsValid { get; set; }
 }

@@ -10,6 +10,6 @@ public class PingController : ControllerBase
     public string Ping()
     {
         // return the version information in the pong request to notify the user to use the latest version
-        return "pong version=0.2";
+        return "pong version=0.3";
     }
 }

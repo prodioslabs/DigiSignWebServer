@@ -17,12 +17,19 @@ public class CertificateController : ControllerBase
 
         foreach (X509Certificate2 certifcate in store.Certificates)
         {
+            if (certifcate.Subject.StartsWith("CN=localhost"))
+            {
+                continue;
+            }
+
+            DateTime today = DateTime.Today;
             Certificates.Add(
                 new CertificateData
                 {
                     Subject = certifcate.Subject,
                     Issuer = certifcate.Issuer,
                     ExpiryDate = certifcate.GetExpirationDateString(),
+                    IsValid = certifcate.NotAfter > today,
                 }
             );
         }
